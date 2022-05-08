@@ -9,6 +9,7 @@ app.use(express.json())
 
 // dbpass:5WT1w6kjyfBySCMX
 // dbname:imran
+// server link: https://shielded-spire-43449.herokuapp.com/
 const uri = `mongodb+srv://imran:5WT1w6kjyfBySCMX@cluster0.3s80f.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 async function run() {
@@ -44,6 +45,12 @@ async function run() {
         console.log(updateProduct.quantity);
       
   })
+  app.delete('/product/:id',async(req,res)=>{
+    const id =req.params.id
+    const query={_id:ObjectId(id)}
+    const result =await productCollection.deleteOne(query)
+    res.send(result)
+})
     // Delet User
     // app.delete('/product/:id', async (req, res) => {
     //   const id = req.params.id

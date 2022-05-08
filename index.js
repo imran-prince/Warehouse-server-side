@@ -66,22 +66,48 @@ async function run() {
       res.send(result)
     })
     // // put method for updata
-    // app.put('/product/:id', async (req, res) => {
-    //   const id = req.params.id
-    //   const updateUser = req.body
-    //   const filter = { _id: ObjectId(id) }
-    //   const option = { upsert: true }
-    //   const updatedoc = {
-    //     $set: {
-    //       name: updateUser.name,
-    //       email: updateUser.email
+    app.put('/productupdate/:id', async (req, res) => {
+      const id = req.params.id
+      const updateProduct = req.body
+      const filter = { _id: ObjectId(id) }
+      const option = { upsert: true }
+      const updatedoc = {
+        $set: {
+            name: updateProduct.name,
+            email: updateProduct.email,
+            price:updateProduct.price,
+            quantity:updateProduct.quantity,
+            suppliyer_name:updateProduct.suppliyer_name,
+            description:updateProduct.description,
+            img:updateProduct.img
 
-    //     }
-    //   }
-    //   const result = await userColloectin.updateOne(filter, updatedoc, option)
-    //   res.send(result)
+           
 
-    // })
+        }
+      }
+      const result = await productCollection.updateOne(filter, updatedoc, option)
+      res.send(result)
+
+    })
+    app.put('/productdecrease/:id', async (req, res) => {
+      const id = req.params.id
+      const updateQuantity = req.body
+      const filter = { _id: ObjectId(id) }
+      const option = { upsert: true }
+      const updatedoc = {
+        $set: {
+             
+            quantity:updateQuantity.quantity,
+             
+
+           
+
+        }
+      }
+      const result = await productCollection.updateOne(filter, updatedoc, option)
+      res.send(result)
+
+    })
 
 
 
